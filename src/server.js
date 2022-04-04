@@ -8,7 +8,7 @@ const io = require('socket.io')(server) //definindo o protocolo wss para o webso
 const cors = require("cors");
 
 //configurando para que nossa aplicação entenda que vamos utilizar html no front
-app.use(express.static(path.join(__dirname, 'public')));//definindo onde irão ficar nossos arquivos publicos da aplicação
+app.use(express.static(path.join(__dirname, './public')));//definindo onde irão ficar nossos arquivos publicos da aplicação
 app.set('views', path.join(__dirname, 'views'));
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
