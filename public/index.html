@@ -17,10 +17,10 @@
 <body>
 
     <form id="chat">
-        <input type="text" id="inputText" name="username" placeholder="Digite seu usuário">
+        <input type="text" name="username" placeholder="Digite seu usuário">
         <div class="messages">
         </div>
-        <input type="text" name="message" placeholder="Digite sua mensagem ">
+        <input type="text" id="inputText" name="message" placeholder="Digite sua mensagem ">
         <button type="submit">Enviar</button>
     </form>
 
@@ -36,7 +36,7 @@
             if (!message.outros) {
                 classes += ' messageSent'
             }
-            console.log($('#inputText'))
+            $('#inputText').val('')
             $('.messages').append('<div class="' + classes + '"><strong>' + message.username + '</strong>: ' + message.message + '</div>');
         }
 
