@@ -8,18 +8,14 @@ const io = require('socket.io')(server) //definindo o protocolo wss para o webso
 const cors = require("cors");
 
 //configurando para que nossa aplicação entenda que vamos utilizar html no front
-app.use(express.static(path.join(__dirname, './public')));//definindo onde irão ficar nossos arquivos publicos da aplicação
-app.set('views', path.join(__dirname, 'views'));
+app.use(express.static(path.join(__dirname, 'public')));//definindo onde irão ficar nossos arquivos publicos da aplicação
+app.set('views', path.join(__dirname, 'public'));
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
 app.use('/', (req, res)=>{
     res.render('index.html');
 });
-
-var port_number = server.listen(process.env.PORT || 3000);
-app.listen(port_number);
-
 
 //array de messages vai servir para guardar nossas mensagens
 let messages = [];
@@ -34,3 +30,5 @@ io.on('connection', socket => {
         socket.broadcast.emit('receivedMessage', data); 
     });
 });
+
+server.listen(3000);
