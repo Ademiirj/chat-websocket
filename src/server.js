@@ -5,6 +5,7 @@ const path = require('path'); //padrão node
 const app = express(); 
 const server = require('http').createServer(app); //definindo o protocolo http
 const io = require('socket.io')(server) //definindo o protocolo wss para o websocket
+const cors = require("cors");
 
 //configurando para que nossa aplicação entenda que vamos utilizar html no front
 app.use(express.static(path.join(__dirname, 'public')));//definindo onde irão ficar nossos arquivos publicos da aplicação
