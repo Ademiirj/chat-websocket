@@ -17,9 +17,8 @@ app.use('/', (req, res)=>{
     res.render('index.html');
 });
 
-app.listen(3000, function(){
-    console.log("Express server listening on port %d in %s mode", this.address().port);
-})
+var port_number = server.listen(process.env.PORT || 3000);
+app.listen(port_number);
 
 
 //array de messages vai servir para guardar nossas mensagens
