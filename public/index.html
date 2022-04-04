@@ -31,7 +31,12 @@
         })
 
         function renderMessage(message) {
-            $('.messages').append('<div class="message"><strong>' + message.username + '</strong>: ' + message.message + '</div>');
+            console.log(message)
+            var classes = 'message';
+            if (!message.me) {
+                classes += ' messageSent'
+            }
+            $('.messages').append('<div class="' + classes + '"><strong>' + message.username + '</strong>: ' + message.message + '</div>');
         }
 
         socket.on('previousMessages', function (messages) {
@@ -50,6 +55,8 @@
 
             var username = $('input[name=username').val();
             var message = $('input[name=message').val();
+
+            console.log(event)
 
             if (username.length && message.length) {
                 var messageObject = {

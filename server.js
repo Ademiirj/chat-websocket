@@ -31,6 +31,7 @@ io.on('connection', socket => {
     socket.emit('previousMessages', messages);
 
     socket.on('sendMessage', data => {
+        data.me = false;
         messages.push(data);
         socket.broadcast.emit('receivedMessage', data);
     });
