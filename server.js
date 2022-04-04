@@ -4,8 +4,13 @@ const path = require('path'); //padrão node
 
 const app = express(); 
 const server = require('http').createServer(app); //definindo o protocolo http
-const io = require('socket.io')(server) //definindo o protocolo wss para o websocket
-const cors = require("cors");
+const io = require("socket.io")(server, {
+    cors: {
+        origin: "http://192.168.15.3:3000/",
+        methods: ["GET", "POST"],
+        credentials: true
+    }
+});
 
 //configurando para que nossa aplicação entenda que vamos utilizar html no front
 app.use(express.static(path.join(__dirname, 'public')));//definindo onde irão ficar nossos arquivos publicos da aplicação
@@ -13,7 +18,7 @@ app.set('views', path.join(__dirname, 'public'));
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
-app.use('/', (req, res)=>{
+app.use('/', (req, res) => {
     res.render('index.html');
 });
 
@@ -24,10 +29,10 @@ io.on('connection', socket => {
     console.log(`Socket conectado: ${socket.id}`);
 
     socket.emit('previousMessages', messages);
-    
-    socket.on('sendMessage', data =>{
+
+    socket.on('sendMessage', data => {
         messages.push(data);
-        socket.broadcast.emit('receivedMessage', data); 
+        socket.broadcast.emit('receivedMessage', data);
     });
 });
 

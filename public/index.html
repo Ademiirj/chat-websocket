@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat via websocket</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js" integrity="sha512-MgkNs0gNdrnOM7k+0L+wgiRc5aLgl74sJQKbIWegVIMvVGPc1+gc1L2oK9Wf/D9pq58eqIJAxOonYPVE5UwUFA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+        integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js"
+        integrity="sha512-MgkNs0gNdrnOM7k+0L+wgiRc5aLgl74sJQKbIWegVIMvVGPc1+gc1L2oK9Wf/D9pq58eqIJAxOonYPVE5UwUFA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
     <form id="chat">
@@ -18,33 +23,35 @@
         <input type="text" name="message" placeholder="Digite sua mensagem ">
         <button type="submit">Enviar</button>
     </form>
-    
+
     <script type="text/javascript">
         // conectando com o socket do backend
-        var socket = io('http://localhost:3000');
-        
-        function renderMessage(message){
-            $('.messages').append('<div class="message"><strong>'+message.username + '</strong>: ' + message.message + '</div>');
+        var socket = io('http://192.168.15.3:3000', {
+            withCredentials: true
+        })
+
+        function renderMessage(message) {
+            $('.messages').append('<div class="message"><strong>' + message.username + '</strong>: ' + message.message + '</div>');
         }
-        
-        socket.on('previousMessages', function(messages){
-            for (message of messages){
+
+        socket.on('previousMessages', function (messages) {
+            for (message of messages) {
                 renderMessage(message);
             }
         })
-        
-        socket.on('receivedMessage', function(message){
+
+        socket.on('receivedMessage', function (message) {
             renderMessage(message);
         });
 
-    
-        $('#chat').submit(function(event){
+
+        $('#chat').submit(function (event) {
             event.preventDefault();
-            
+
             var username = $('input[name=username').val();
             var message = $('input[name=message').val();
 
-            if(username.length && message.length){
+            if (username.length && message.length) {
                 var messageObject = {
                     username: username,
                     message: message,
@@ -55,4 +62,5 @@
         });
     </script>
 </body>
+
 </html>
