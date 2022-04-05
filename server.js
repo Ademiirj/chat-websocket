@@ -1,12 +1,13 @@
 const express = require('express'); //que vai fazer a trativa para mostrar arquivo estático
 const path = require('path'); //padrão node
+require('dotenv/config');
 
 
 const app = express(); 
 const server = require('http').createServer(app); //definindo o protocolo http
 const io = require("socket.io")(server, {
     cors: {
-        origin: "http://192.168.15.3:3000/",
+        origin: "http://"+process.env.LOCAL_IP+":"+process.env.PORT+"/",
         methods: ["GET", "POST"],
         credentials: true
     }
@@ -39,4 +40,4 @@ io.on('connection', async socket => {
     });
 });
 
-server.listen(3000);
+server.listen(process.env.PORT);
