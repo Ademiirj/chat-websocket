@@ -6,7 +6,7 @@ const app = express();
 const server = require('http').createServer(app); //definindo o protocolo http
 const io = require("socket.io")(server, {
     cors: {
-        origin: "http://10.1.72.236:3000/",
+        origin: "http://192.168.15.3:3000/",
         methods: ["GET", "POST"],
         credentials: true
     }
