@@ -43,7 +43,7 @@ button {
   margin: 20px 0;
   border: 1px solid #ddd;
   padding: 20px;
-  overflow: auto;
+  overflow: scroll;
   display: flex;
   flex-direction: column;
 }
@@ -80,4 +80,19 @@ button {
 }
 .inputText{
   width: 85%;
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+  height: 9px;
+}
+::-webkit-scrollbar-thumb {
+  background: #069;
+  border-radius: 30px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(0, 66, 99);
+}
+::-webkit-scrollbar-track {
+  background: #00000000;
 }
