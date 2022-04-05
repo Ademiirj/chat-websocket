@@ -1,62 +1,72 @@
-html, body {
-    height: 100%;
-  }
-  
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  #chat {
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  }
-  
-  input {
-    width: 600px;
-    border: 1px solid #ddd;
-    height: 50px;
-    padding: 0 20px;
-    font-size: 14px;
-  }
-  
-  button {
-    width: 600px;
-    height: 50px;
-    font-size: 14px;
-    background: #069;
-    text-align: center;
-    line-height: 50px;
-    font-weight: bold;
-    color: #FFF;
-    margin-top: 10px;
-  }
-  
-  .messages {
-    width: 600px;
-    height: 400px;
-    margin: 20px 0;
-    border: 1px solid #ddd;
-    padding: 20px;
-    overflow: auto;
-    display: flex;
-    flex-direction: column;
-  }
-  .message.messageSent{
-    background-color: rgb(103, 210, 103);
-    display: flex;
-    justify-content: flex-end;
-    border-radius: 50px 20px 0px 20px;
-  }
-  .message{
-    padding: 5px 5px 2px 5px;
-    background-color: rgb(103, 174, 210);
-    margin: 8px;
-    border-radius: 20px 50px 20px 0px;
-    font-size: 16px;
-    word-break: break-word;
-  }
+html,
+body {
+  height: 100%;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#chat {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+input {
+  width: 600px;
+  border: 1px solid #ddd;
+  height: 50px;
+  padding: 0 20px;
+  font-size: 14px;
+}
+
+button {
+  width: 600px;
+  height: 50px;
+  font-size: 14px;
+  background: #069;
+  text-align: center;
+  line-height: 50px;
+  font-weight: bold;
+  color: #FFF;
+  margin-top: 10px;
+}
+
+.messages {
+  width: 600px;
+  height: 400px;
+  margin: 20px 0;
+  border: 1px solid #ddd;
+  padding: 20px;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.message.messageSent {
+  background-color: rgb(103, 210, 103);
+  display: flex;
+  justify-content: flex-end;
+  border-radius: 50px 20px 0px 20px;
+}
+
+.message {
+  padding: 5px 5px 2px 5px;
+  background-color: rgb(103, 174, 210);
+  margin: 8px;
+  border-radius: 20px 50px 20px 0px;
+  font-size: 16px;
+  word-break: break-word;
+
+  min-width: 100px;
+  max-width: 500px;
+}
+
+.horario {
+  font-size: 14px;
+}

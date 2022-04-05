@@ -25,13 +25,15 @@ app.use('/', (req, res) => {
 //array de messages vai servir para guardar nossas mensagens
 let messages = [];
 
-io.on('connection', socket => {
+io.on('connection', async socket => {
     console.log(`Socket conectado: ${socket.id}`);
+    await socket.emit('userIp', socket.conn.remoteAddress);
 
     socket.emit('previousMessages', messages);
 
     socket.on('sendMessage', data => {
         data.outros = true;
+        data.ipUsuario = socket.conn.remoteAddress
         messages.push(data);
         socket.broadcast.emit('receivedMessage', data);
     });

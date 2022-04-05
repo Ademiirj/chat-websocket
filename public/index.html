@@ -55,7 +55,7 @@
                 classes += ' messageSent'
             }
             $('#inputText').val('')
-            $('.messages').append('<div class="' + classes + '"><strong>' + message.username + '</strong>: ' + message.message + '</div> <div class="data">' + message.horario + ' </div>');
+            $('.messages').append('<div class="' + classes + '"><strong>' + message.username + '</strong>: ' + message.message + '</div> <div class="horario">' + message.horario + ' </div>');
         }
 
         $('#chat').submit(function (event) {
