@@ -15,20 +15,28 @@
 </head>
 
 <body>
-
     <form id="chat">
         <input type="text" name="username" placeholder="Digite seu usuário">
         <div class="messages" id="chatmessages">
         </div>
-        <div class="row">
-            <input class="inputText" type="text" onkeydown="this.submit();" id="inputText" name="message" placeholder="Digite sua mensagem ">
-            <input id="colorpicker" type="color" value="#67d267">
+        <div class="row inputAndColor">
+            <input class="inputText" type="text" onkeydown="this.submit();" id="inputText" name="message"
+                placeholder="Digite sua mensagem ">
+            <div class="column">
+                <div class="row">
+                    <div onclick="strong()" class="textIcons">B</div>
+                    <div onclick="underline()" class="textIcons">S</div>
+                </div>
+                <input id="colorpicker" type="color" value="#67d267">
+            </div>
         </div>
         <button type="submit">Enviar</button>
     </form>
 
     <script type="text/javascript">
         var userIp = null;
+        var fontStrong = false;
+        var fontUnderline = false;
         // conectando com o socket do backend
         var socket = io(window.location.href, {
             withCredentials: true
@@ -50,15 +58,28 @@
             renderMessage(message);
         });
 
+        function strong() {
+            fontStrong = !fontStrong;
+        }
+        function underline() {
+            fontUnderline = !fontUnderline;
+        }
 
         function renderMessage(message) {
             var classes = 'message';
+            var otherStyle = '';
             if (userIp == message.ipUsuario) {
                 classes += ' messageSent'
             }
+            if (message.fontIsStrong) {
+                otherStyle += ' font-weight: bold; '
+            }
+            if (message.fontIsUnderline) {
+                otherStyle += ' text-decoration: underline; '
+            }
             $('#inputText').val('')
-            $('.messages').append('<div class="' + classes + '" style="background-color: ' + message.color + '"><strong>' + message.username + '</strong>: ' + message.message + '</div> <div class="horario">' + message.horario + ' </div>');
-    
+            $('.messages').append('<div class="' + classes + '" style="background-color: ' + message.color + ';  ' + otherStyle + '"><strong>' + message.username + '</strong>: ' + message.message + '</div> <div class="horario">' + message.horario + ' </div>');
+
             const lastMessage = $(".message").last()
             $('#chatmessages').scrollTop(lastMessage[0].offsetTop);
         }
@@ -70,6 +91,8 @@
             var username = $('input[name=username').val();
             var message = $('input[name=message').val();
             var color = $('#colorpicker').val()
+            var fontIsStrong = fontStrong;
+            var fontIsUnderline = fontUnderline;
 
             if (username.length && message.length) {
                 var messageObject = {
@@ -77,7 +100,9 @@
                     message: message,
                     horario: agora.getHours() + ":" + ('0' + agora.getMinutes()).slice(-2),
                     ipUsuario: userIp,
-                    color: color
+                    color: color,
+                    fontIsStrong: fontIsStrong,
+                    fontIsUnderline: fontIsUnderline
                 };
                 renderMessage(messageObject);
                 socket.emit('sendMessage', messageObject);
