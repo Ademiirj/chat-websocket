@@ -13,6 +13,7 @@ body {
 
 #chat {
   margin-top: 5%;
+  width: 700px;
   height: 100%;
   display: flex;
   justify-content: center;
@@ -51,7 +52,7 @@ button {
 }
 
 .message.messageSent {
-  background-color: #67d267;
+  background-color: #006699;
   display: flex;
   justify-content: flex-end;
   border-radius: 50px 20px 0px 20px;
