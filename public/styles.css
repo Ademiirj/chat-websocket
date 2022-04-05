@@ -1,6 +1,8 @@
-html,
 body {
   height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 * {
@@ -10,23 +12,24 @@ body {
 }
 
 #chat {
+  margin-top: 5%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  align-items: stretch
 }
 
 input {
-  width: 600px;
   border: 1px solid #ddd;
   height: 50px;
   padding: 0 20px;
   font-size: 14px;
+  width: 100%;
 }
 
 button {
-  width: 600px;
   height: 50px;
   font-size: 14px;
   background: #069;
@@ -38,7 +41,6 @@ button {
 }
 
 .messages {
-  width: 600px;
   height: 400px;
   margin: 20px 0;
   border: 1px solid #ddd;
@@ -73,13 +75,17 @@ button {
 .row {
   display: flex;
   flex-direction: row;
-  width: 600px;
+}
+.column{
+  display: flex;
+  flex-direction: column;
 }
 #colorpicker{
-  width: 15%;
-}
-.inputText{
-  width: 85%;
+  width: 80px;
+  height: 80%;
+  border: none;
+  padding: 0px;
+
 }
 
 ::-webkit-scrollbar {
