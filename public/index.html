@@ -20,7 +20,10 @@
         <input type="text" name="username" placeholder="Digite seu usuário">
         <div class="messages">
         </div>
-        <input type="text" id="inputText" name="message" placeholder="Digite sua mensagem ">
+        <div class="row">
+            <input class="inputText" type="text" id="inputText" name="message" placeholder="Digite sua mensagem ">
+            <input id="colorpicker" type="color" value="#67d267">
+        </div>
         <button type="submit">Enviar</button>
     </form>
 
@@ -55,7 +58,7 @@
                 classes += ' messageSent'
             }
             $('#inputText').val('')
-            $('.messages').append('<div class="' + classes + '"><strong>' + message.username + '</strong>: ' + message.message + '</div> <div class="horario">' + message.horario + ' </div>');
+            $('.messages').append('<div class="' + classes + '" style="background-color: ' + message.color + '"><strong>' + message.username + '</strong>: ' + message.message + '</div> <div class="horario">' + message.horario + ' </div>');
         }
 
         $('#chat').submit(function (event) {
@@ -64,13 +67,15 @@
 
             var username = $('input[name=username').val();
             var message = $('input[name=message').val();
+            var color = $('#colorpicker').val()
 
             if (username.length && message.length) {
                 var messageObject = {
                     username: username,
                     message: message,
                     horario: agora.getHours() + ":" + ('0' + agora.getMinutes()).slice(-2),
-                    ipUsuario: userIp
+                    ipUsuario: userIp,
+                    color: color
                 };
                 renderMessage(messageObject);
                 socket.emit('sendMessage', messageObject);
