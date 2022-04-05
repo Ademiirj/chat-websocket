@@ -25,19 +25,16 @@
     </form>
 
     <script type="text/javascript">
+        var userIp = null;
+
         // conectando com o socket do backend
         var socket = io('http://192.168.15.3:3000', {
             withCredentials: true
         })
 
-        function renderMessage(message) {
-            var classes = 'message';
-            if (!message.outros) {
-                classes += ' messageSent'
-            }
-            $('#inputText').val('')
-            $('.messages').append('<div class="' + classes + '"><strong>' + message.username + '</strong>: ' + message.message + '</div> <div class="data">' + message.horario + ' </div>');
-        }
+        socket.on('userIp', function (ip) {
+            userIp = ip
+        });
 
         socket.on('previousMessages', function (messages) {
             for (message of messages) {
@@ -47,12 +44,19 @@
 
         socket.on('receivedMessage', function (message) {
             var audio = new Audio('audio.mp3');
-            audio.addEventListener('canplaythrough', function () {
-                audio.play();
-            });
+            audio.play();
             renderMessage(message);
         });
 
+
+        function renderMessage(message) {
+            var classes = 'message';
+            if (userIp == message.ipUsuario) {
+                classes += ' messageSent'
+            }
+            $('#inputText').val('')
+            $('.messages').append('<div class="' + classes + '"><strong>' + message.username + '</strong>: ' + message.message + '</div> <div class="data">' + message.horario + ' </div>');
+        }
 
         $('#chat').submit(function (event) {
             event.preventDefault();
@@ -61,13 +65,12 @@
             var username = $('input[name=username').val();
             var message = $('input[name=message').val();
 
-            console.log(event)
-
             if (username.length && message.length) {
                 var messageObject = {
                     username: username,
                     message: message,
-                    horario: agora.getHours() + ":"+ agora.getMinutes()
+                    horario: agora.getHours() + ":" + ('0' + agora.getMinutes()).slice(-2),
+                    ipUsuario: userIp
                 };
                 renderMessage(messageObject);
                 socket.emit('sendMessage', messageObject);
